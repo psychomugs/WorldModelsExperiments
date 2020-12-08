@@ -5,8 +5,8 @@ import gym
 import os
 import json
 
-from scipy.misc import imresize as resize
-from scipy.misc import toimage as toimage
+# from scipy.misc import imresize as resize
+# from scipy.misc import toimage as toimage
 from gym.spaces.box import Box
 from gym.utils import seeding
 
@@ -14,7 +14,13 @@ SCREEN_X = 64
 SCREEN_Y = 64
 FACTOR = 8
 
-with open(os.path.join('initial_z', 'initial_z.json'), 'r') as f:
+cur_dir = os.getcwd()
+print(cur_dir)
+for _ in range(2):
+  cur_dir = cur_dir[:cur_dir.rfind('/')]
+cur_dir += '/WorldModelsExperiments/carracing/'
+
+with open(os.path.join(cur_dir+'initial_z', 'initial_z.json'), 'r') as f:
   [initial_mu, initial_logvar] = json.load(f)
 
 initial_mu_logvar = [list(elem) for elem in zip(initial_mu, initial_logvar)]
@@ -128,7 +134,7 @@ class CarRacingDream(gym.Env):
 
     img = self.decode_obs(self.z)
 
-    img = resize(img, (int(np.round(SCREEN_Y*FACTOR)), int(np.round(SCREEN_X*FACTOR))))
+    # img = resize(img, (int(np.round(SCREEN_Y*FACTOR)), int(np.round(SCREEN_X*FACTOR))))
 
     if self.frame_count > 0:
       pass

@@ -6,7 +6,7 @@ import random
 import json
 import sys
 
-from dream_env import make_env
+from dream_env import make_env, cur_dir
 import time
 
 from vae.vae import ConvVAE
@@ -56,8 +56,8 @@ class Model:
     self.rnn = MDNRNN(hps_sample, gpu_mode=False, reuse=True)
 
     if load_model:
-      self.vae.load_json('vae/vae.json')
-      self.rnn.load_json('rnn/rnn.json')
+      self.vae.load_json(cur_dir+'vae/vae.json')
+      self.rnn.load_json(cur_dir+'rnn/rnn.json')
 
     self.state = rnn_init_state(self.rnn)
     self.rnn_mode = True
